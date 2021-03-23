@@ -1,7 +1,13 @@
 <?php declare(strict_types=1);
-
+/**
+ * Main application class
+ *
+ * @author Kate Gray <opensource@codebykate.com>
+ * @license https://unlicense.org/ Unlicense (Public Domain)
+ */
 namespace KateGray\DnsChallenge;
 
+use Cloudflare\API\Endpoints\EndpointException;
 use \Exception;
 use \Cloudflare\API\Auth\APIKey;
 use \Cloudflare\API\Adapter\Guzzle;
@@ -29,9 +35,10 @@ class SetupCommand extends Command {
      * @param InputInterface $input
      * @param OutputInterface $output
      * @return int Exit code for the command line interface
-     * @throws \Cloudflare\API\Endpoints\EndpointException
+     * @throws EndpointException
+     * @throws Exception
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /** @var Application $application */
         $application = $this->getApplication();
@@ -41,6 +48,7 @@ class SetupCommand extends Command {
         $api_key     = $config['cloudflare']['api_key'];
         $record_name = $config['dns']['record_name'];
         $record_type = $config['dns']['record_type'];
+        $record_ttl  = $config['dns']['record_ttl'];
         $zone_name   = $input->getArgument('zone');
         $challenge   = $input->getArgument('challenge');
 
@@ -59,24 +67,26 @@ class SetupCommand extends Command {
             throw new Exception('Unable to get ID for zone.');
         }
 
-        // Check for an existing record
+        // Check for an existing record and delete it if present
         $record_id = $dns->getRecordID($zone_id, $record_type, $record);
-        var_dump ($record_id);
         if ('' != $record_id) {
             // Existing record, delete
             $result = $dns->deleteRecord($zone_id, $record_id);
 
-            if (!$result) {
-                throw new Exception ('Unable to delete record from Cloudflare.');
-            }
+            if (!$result) throw new Exception ('Unable to delete record from Cloudflare.');
+        } else {
+            $result = true;
         }
 
+        // Only add a new challenge if there is a challenge to add
         if (false !== $challenge) {
             // Create a new record
-            $result = $dns->addRecord($zone_id, $record_type, $record, $challenge, 120, false);
+            $result = $dns->addRecord($zone_id, $record_type, $record,
+                $challenge, $record_ttl, false);
         }
 
-        // Pause here in order to give cloudflare a chance before this kicks in
+        // Pause here in order to give cloudflare a chance before exiting
+        // This helps keep mod_md from cycling too often while this propagages
         sleep(5);
 
         // True if both the challenge and delete succeed
