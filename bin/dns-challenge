@@ -1,0 +1,15 @@
+#!/usr/bin/env php
+<?php declare(strict_types=1);
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+use \KateGray\DnsChallenge\Application;
+use \Symfony\Component\Console\Command\Command;
+
+$application = new Application;
+try {
+    $application->run();
+} catch (Exception $e) {
+    printf ("Fatal Error: %s\n", $e->getMessage());
+    return Command::FAILURE;
+}

@@ -1,0 +1,24 @@
+{
+  "name": "kategray/dns-challenge-cloudflare",
+  "description": "Automatically performs DNS challenges with CloudFlare (for mod_md)",
+  "minimum-stability": "stable",
+  "license": "unlicense",
+  "authors": [
+    {
+      "name": "Kate Gray",
+      "email": "opensource@codebykate.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "KateGray\\DnsChallenge\\": "src/"
+    }
+  },
+  "require": {
+    "symfony/console": "^5.2",
+    "cloudflare/sdk": "^1.1",
+    "symfony/config": "^5.2",
+    "consolidation/self-update": "^1.2",
+    "symfony/yaml": "^5.2"
+  }
+}
