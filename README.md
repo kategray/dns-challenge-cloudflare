@@ -7,12 +7,12 @@ certificates, particularly with mod_md.  It supports Cloudflare DNS services.
 
 ## Installation
 
-Download the .phar, put it somewhere.  Create /etc/dns-challenge.yaml, and
+Download the .phar, put it somewhere.  Create /etc/dns-challenge.yml, and
 ensure it's readable only by root and the web server user (often www-data).
 
 ## Configuration
 
-Add the following configuration to /etc/dns-challenge.yaml:
+Add the following configuration to /etc/dns-challenge.yml:
 ```yaml
 dns:
     record_name: _acme-dns-challenge
@@ -29,7 +29,7 @@ Configure apache for mod_md.  It should look something like this:
 	<MDomain xyz.cloud>
 		MDMember *.xyz.cloud
 	</MDomain>
-	MDChallengeDns01 /sbin/dns-challenge
+	MDChallengeDns01 /sbin/dns-challenge --
 	MDCertificateAgreement accepted
 	MDContactEmail admin@xyz.cloud
 	MDCAChallenges dns-01
