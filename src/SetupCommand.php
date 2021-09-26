@@ -23,7 +23,7 @@ class SetupCommand extends Command {
     protected static $defaultName = 'setup';
     
     // Delay (in seconds) after sending command before returning to mod_md
-    protected const WAIT_DELAY = 15;
+    protected const WAIT_DELAY = 5;
 
     protected function configure()
     {

@@ -15,7 +15,7 @@ ensure it's readable only by root and the web server user (often www-data).
 Add the following configuration to /etc/dns-challenge.yml:
 ```yaml
 dns:
-    record_name: _acme-dns-challenge
+    record_name: _acme-challenge
     record_type: TXT
     record_ttl:  120
 cloudflare:

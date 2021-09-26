@@ -19,6 +19,11 @@
     "cloudflare/sdk": "^1.2",
     "symfony/config": "^5.3",
     "consolidation/self-update": "^1.2",
-    "symfony/yaml": "^5.3"
+    "symfony/yaml": "^5.3",
+    "symfony/polyfill-mbstring": "^1.23"
+  },
+  "require-dev": {
+    "php": ">=8.0",
+    "ext-mbstring": "*"
   }
 }
