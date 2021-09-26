@@ -1,5 +1,4 @@
 {
-    "chmod": "0755",
     "main": "bin/dns-challenge",
     "output": "dist/dns-challenge.phar",
 
@@ -10,6 +9,5 @@
             "exclude": ["test", "tests"],
             "in": "vendor"
          }
-    ],
-    "stub": true
+    ]
 }
