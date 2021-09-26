@@ -15,10 +15,15 @@
     }
   },
   "require": {
-    "symfony/console": "^5.2",
-    "cloudflare/sdk": "^1.1",
-    "symfony/config": "^5.2",
+    "symfony/console": "^5.3",
+    "cloudflare/sdk": "^1.2",
+    "symfony/config": "^5.3",
     "consolidation/self-update": "^1.2",
-    "symfony/yaml": "^5.2"
+    "symfony/yaml": "^5.3",
+    "symfony/polyfill-mbstring": "^1.23"
+  },
+  "require-dev": {
+    "php": ">=8.0",
+    "ext-mbstring": "*"
   }
 }

@@ -29,7 +29,7 @@ class Configuration implements ConfigurationInterface
                 ->addDefaultsIfNotSet()
                 ->children()
                     ->scalarNode('record_name')
-                        ->defaultValue('_acme-dns-challenge')
+                        ->defaultValue('_acme-challenge')
                         ->cannotBeEmpty()
                     ->end()
                     ->scalarNode('record_type')

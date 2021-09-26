@@ -1,6 +1,6 @@
 all: package
 
 package: .PHONY
-	./bin/box build
+	./bin/box compile
 
 .PHONY:

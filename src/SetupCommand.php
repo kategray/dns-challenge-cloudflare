@@ -19,7 +19,11 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class SetupCommand extends Command {
+    // Default command
     protected static $defaultName = 'setup';
+    
+    // Delay (in seconds) after sending command before returning to mod_md
+    protected const WAIT_DELAY = 5;
 
     protected function configure()
     {
@@ -87,7 +91,7 @@ class SetupCommand extends Command {
 
         // Pause here in order to give cloudflare a chance before exiting
         // This helps keep mod_md from cycling too often while this propagages
-        sleep(5);
+        sleep(self::WAIT_DELAY);
 
         // True if both the challenge and delete succeed
         if (true === $result) {
